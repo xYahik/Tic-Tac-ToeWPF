@@ -21,27 +21,26 @@ namespace WpfApp3
     public partial class MainWindow : Window
     {
         private Znaki[] znaki;
-        private bool Czy_Ruch_Gracza_1;
+        private bool Czy_Ruch_Gracza_Pierwszego;
         private bool Czy_Gra_Zakończona;
         public MainWindow()
         {
             InitializeComponent();
-            WyrszajPrzyjacielu();
+            ZaczynamyRozgrywke();
         }
 
-        private void WyrszajPrzyjacielu()
+        private void ZaczynamyRozgrywke()
         {
-            znaki = new Znaki[9];
+            znaki = new Znaki[16];
             for (var i = 0; i < znaki.Length; i++)
                 znaki[i] = Znaki.PustaKomórka;
 
-            Czy_Ruch_Gracza_1 = true;
+            Czy_Ruch_Gracza_Pierwszego = true;
 
-            Conteiner.Children.Cast<Button>().ToList().ForEach(button =>
+            Conteiner.Children.Cast<Button>().ToList().ForEach(kratka =>
             {
-                button.Content = string.Empty;
-                button.Background = Brushes.Red;
-                button.Foreground = Brushes.Green;
+                kratka.Content = string.Empty;
+                kratka.Background = Brushes.DarkGray;
             });
             Czy_Gra_Zakończona = false;
         }
@@ -50,21 +49,21 @@ namespace WpfApp3
         {
             if (Czy_Gra_Zakończona)
             {
-                WyrszajPrzyjacielu();
+                ZaczynamyRozgrywke();
                 return;
             }
 
-            var button = (Button)sender;
-            var column = Grid.GetColumn(button);
-            var row = Grid.GetRow(button);
+            var kratka = (Button)sender;
+            var column = Grid.GetColumn(kratka);
+            var row = Grid.GetRow(kratka);
 
-            var index = column + (row * 3);
+            var index = column + (row * 4);
 
             if(znaki[index] != Znaki.PustaKomórka)
             {
                 return;
             }
-            if (Czy_Ruch_Gracza_1)
+            if (Czy_Ruch_Gracza_Pierwszego)
             {
                 znaki[index] = Znaki.Znak_O;
             }
@@ -72,99 +71,141 @@ namespace WpfApp3
             {
                 znaki[index] = Znaki.Znak_X;
             }
-            if (Czy_Ruch_Gracza_1)
+            if (Czy_Ruch_Gracza_Pierwszego)
             {
-                button.Content = "O";
+                kratka.Content = "O";
+                kratka.Foreground = Brushes.Red;
             }
             else
             {
-                button.Content = "X";
+                kratka.Content = "X";
+                kratka.Foreground = Brushes.Blue;
             }
-            if (Czy_Ruch_Gracza_1)
+            if (Czy_Ruch_Gracza_Pierwszego)
             {
-                Czy_Ruch_Gracza_1 = false;
+                Czy_Ruch_Gracza_Pierwszego = false;
             }
             else
             {
-                Czy_Ruch_Gracza_1 = true;
+                Czy_Ruch_Gracza_Pierwszego = true;
             }
             Wygrana();
         }
 
         private void Wygrana()
         {
-            //xxx
-            //---
-            //---
-            if(znaki[0]!=Znaki.PustaKomórka && (znaki[0]&znaki[1]&znaki[2])== znaki[0])
+
+            #region wPoziomie
+            
+            if ((znaki[0] & znaki[1] & znaki[2] & znaki[3]) == znaki[0] && znaki[0] != Znaki.PustaKomórka)
             {
                 Czy_Gra_Zakończona = true;
-                Button0_0.Background = Button1_0.Background = Button2_0.Background = Brushes.Green;
+                ButtonA1.Background = ButtonA2.Background = ButtonA3.Background = ButtonA4.Background = Brushes.Green;
             }
-            //---
-            //xxx
-            //---
-            if (znaki[3] != Znaki.PustaKomórka && (znaki[3] & znaki[4] & znaki[5]) == znaki[3])
+            if ((znaki[4] & znaki[5] & znaki[6] & znaki[7]) == znaki[4] && znaki[4] != Znaki.PustaKomórka)
             {
                 Czy_Gra_Zakończona = true;
-                Button0_1.Background = Button1_1.Background = Button2_1.Background = Brushes.Green;
+                ButtonB1.Background = ButtonB2.Background = ButtonB3.Background = ButtonB4.Background = Brushes.Green;
             }
-            //---
-            //---
-            //xxx
-            if (znaki[6] != Znaki.PustaKomórka && (znaki[6] & znaki[7] & znaki[8]) == znaki[6])
+            if ((znaki[8] & znaki[9] & znaki[10] & znaki[11]) == znaki[8] && znaki[8] != Znaki.PustaKomórka)
             {
                 Czy_Gra_Zakończona = true;
-                Button0_2.Background = Button1_2.Background = Button2_2.Background = Brushes.Green;
+                ButtonC1.Background = ButtonC2.Background = ButtonC3.Background = ButtonC4.Background = Brushes.Green;
             }
-            //--x
-            //--x
-            //--x
-            if (znaki[2] != Znaki.PustaKomórka && (znaki[2] & znaki[5] & znaki[8]) == znaki[2])
+            if ((znaki[12] & znaki[13] & znaki[14] & znaki[15]) == znaki[12]&&znaki[12] != Znaki.PustaKomórka)
             {
                 Czy_Gra_Zakończona = true;
-                Button2_0.Background = Button2_1.Background = Button2_2.Background = Brushes.Green;
+                ButtonD1.Background = ButtonD2.Background = ButtonD3.Background = ButtonD4.Background = Brushes.Green;
             }
-            //-x-
-            //-x-
-            //-x-
-            if (znaki[1] != Znaki.PustaKomórka && (znaki[1] & znaki[4] & znaki[7]) == znaki[1])
+            #endregion
+            #region wPionie
+            if ((znaki[0] & znaki[4] & znaki[8] & znaki[12]) == znaki[0]&& znaki[0] != Znaki.PustaKomórka )
             {
                 Czy_Gra_Zakończona = true;
-                Button1_0.Background = Button1_1.Background = Button1_2.Background = Brushes.Green;
+                ButtonA1.Background = ButtonB1.Background = ButtonC1.Background = ButtonD1.Background = Brushes.Green;
             }
-            //x--
-            //x--
-            //x--
-            if (znaki[0] != Znaki.PustaKomórka && (znaki[0] & znaki[3] & znaki[6]) == znaki[0])
+            if ((znaki[1] & znaki[5] & znaki[9] & znaki[13]) == znaki[1]&&znaki[1] != Znaki.PustaKomórka)
             {
                 Czy_Gra_Zakończona = true;
-                Button0_0.Background = Button0_1.Background = Button0_2.Background = Brushes.Green;
+                ButtonA2.Background = ButtonB2.Background = ButtonC2.Background = ButtonD2.Background = Brushes.Green;
+            }        
+            if ((znaki[2] & znaki[6] & znaki[10] & znaki[14]) == znaki[2] && znaki[2] != Znaki.PustaKomórka)
+            {
+                Czy_Gra_Zakończona = true;
+                ButtonA3.Background = ButtonB3.Background = ButtonC3.Background = ButtonD3.Background = Brushes.Green;
             }
-            //x--
-            //-x-
-            //--x
-            if (znaki[0] != Znaki.PustaKomórka && (znaki[0] & znaki[4] & znaki[8]) == znaki[0])
+            if ((znaki[3] & znaki[7] & znaki[11] & znaki[15]) == znaki[3]&&znaki[3] != Znaki.PustaKomórka)
             {
                 Czy_Gra_Zakończona = true;
-                Button0_0.Background = Button1_1.Background = Button2_2.Background = Brushes.Green;
-            }
-            //--x
-            //-x-
-            //x--
-            if (znaki[2] != Znaki.PustaKomórka && (znaki[2] & znaki[4] & znaki[6]) == znaki[2])
-            {
-                Czy_Gra_Zakończona = true;
-                Button0_2.Background = Button1_1.Background = Button2_0.Background = Brushes.Green;
+                ButtonA4.Background = ButtonB4.Background = ButtonC4.Background = ButtonD4.Background = Brushes.Green;
             }
 
-            if (!znaki.Any(x => x == Znaki.PustaKomórka))
+            #endregion
+            #region skosy
+            if ((znaki[0] & znaki[5] & znaki[10] & znaki[15]) == znaki[0] && znaki[0] != Znaki.PustaKomórka)
             {
                 Czy_Gra_Zakończona = true;
-                Conteiner.Children.Cast<Button>().ToList().ForEach(button =>
-                {
-                    
-                    button.Background = Brushes.Purple;
+                ButtonA1.Background = ButtonB2.Background = ButtonC3.Background = ButtonD4.Background = Brushes.Green;
+            }
+            if ((znaki[3] & znaki[6] & znaki[9] & znaki[12]) == znaki[3] && znaki[3] != Znaki.PustaKomórka)
+            {
+                Czy_Gra_Zakończona = true;
+                ButtonA4.Background = ButtonB3.Background = ButtonC2.Background = ButtonD1.Background = Brushes.Green;
+            }
+            #endregion
+            #region kwadraty
+            if ((znaki[0] & znaki[1] & znaki[4] & znaki[5]) == znaki[0] && znaki[0] != Znaki.PustaKomórka)
+            {
+                Czy_Gra_Zakończona = true;
+                ButtonA1.Background = ButtonA2.Background = ButtonB1.Background = ButtonB2.Background = Brushes.Green;
+            }
+            if ((znaki[1] & znaki[2] & znaki[5] & znaki[6]) == znaki[1] && znaki[1] != Znaki.PustaKomórka)
+            {
+                Czy_Gra_Zakończona = true;
+                ButtonA2.Background = ButtonA3.Background = ButtonB2.Background = ButtonB3.Background = Brushes.Green;
+            }
+            if ((znaki[2] & znaki[3] & znaki[6] & znaki[7]) == znaki[2] && znaki[2] != Znaki.PustaKomórka)
+            {
+                Czy_Gra_Zakończona = true;
+                ButtonA3.Background = ButtonA4.Background = ButtonB3.Background = ButtonB4.Background = Brushes.Green;
+            }
+            if ((znaki[4] & znaki[5] & znaki[8] & znaki[9]) == znaki[4] && znaki[4] != Znaki.PustaKomórka)
+            {
+                Czy_Gra_Zakończona = true;
+                ButtonB1.Background = ButtonB2.Background = ButtonC1.Background = ButtonC2.Background = Brushes.Green;
+            }
+            if ((znaki[5] & znaki[6] & znaki[9] & znaki[10]) == znaki[5] && znaki[5] != Znaki.PustaKomórka)
+            {
+                Czy_Gra_Zakończona = true;
+                ButtonB2.Background = ButtonB3.Background = ButtonC2.Background = ButtonC3.Background = Brushes.Green;
+            }
+            if ((znaki[6] & znaki[7] & znaki[10] & znaki[11]) == znaki[6] && znaki[6] != Znaki.PustaKomórka)
+            {
+                Czy_Gra_Zakończona = true;
+                ButtonB3.Background = ButtonB4.Background = ButtonC3.Background = ButtonC4.Background = Brushes.Green;
+            }
+            if ((znaki[8] & znaki[9] & znaki[12] & znaki[13]) == znaki[8] && znaki[8] != Znaki.PustaKomórka)
+            {
+                Czy_Gra_Zakończona = true;
+                ButtonC1.Background = ButtonC2.Background = ButtonD1.Background = ButtonD2.Background = Brushes.Green;
+            }
+            if ((znaki[9] & znaki[10] & znaki[13] & znaki[14]) == znaki[9] && znaki[9] != Znaki.PustaKomórka)
+            {
+                Czy_Gra_Zakończona = true;
+                ButtonC2.Background = ButtonC3.Background = ButtonD2.Background = ButtonD3.Background = Brushes.Green;
+            }
+            if ((znaki[10] & znaki[11] & znaki[14] & znaki[15]) == znaki[0] && znaki[0] != Znaki.PustaKomórka)
+            {
+                Czy_Gra_Zakończona = true;
+                ButtonC3.Background = ButtonC4.Background = ButtonD3.Background = ButtonD4.Background = Brushes.Green;
+            }
+            #endregion          
+            if (!znaki.Any(x => x == Znaki.PustaKomórka)&&Czy_Gra_Zakończona==false)
+            {
+                Czy_Gra_Zakończona = true;
+                Conteiner.Children.Cast<Button>().ToList().ForEach(kratka =>
+                {                    
+                    kratka.Background = Brushes.Purple;
                 });
             }
         }

@@ -5,33 +5,52 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:WpfApp3"
         mc:Ignorable="d"
-        Title="MainWindow" Height="550" Width="420">
+        Title="MainWindow" Height="550" Width="500" MinWidth="400" MinHeight="400">
+    
     <Window.Resources>
         <Style TargetType="Button">
-            <Setter Property="Background" Value="Pink" />
+        
+            <Setter Property="Background" Value="DarkGray"/>
             <Setter Property="BorderThickness" Value="0.5" />
             <Setter Property="FontSize" Value="100" />
+            <Setter Property="Margin" Value="5"/>
         </Style>
     </Window.Resources>
-    <Grid x:Name="Conteiner">
+    <Grid x:Name="Conteiner" >
+
         <Grid.ColumnDefinitions>
+        
             <ColumnDefinition Width="*"/>
             <ColumnDefinition Width="*"/>
             <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="*"/>
+
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
             <RowDefinition Height="*"/>
             <RowDefinition Height="*"/>
             <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
-        <Button x:Name="Button0_0" Grid.Column="0" Grid.Row="0" Click="Button_Cl"/>
-        <Button x:Name="Button1_0" Grid.Column="1" Grid.Row="0" Click="Button_Cl"/>
-        <Button x:Name="Button2_0" Grid.Column="2" Grid.Row="0" Click="Button_Cl"/>
-        <Button x:Name="Button0_1" Grid.Column="0" Grid.Row="1" Click="Button_Cl"/>
-        <Button x:Name="Button1_1" Grid.Column="1" Grid.Row="1" Click="Button_Cl"/>
-        <Button x:Name="Button2_1" Grid.Column="2" Grid.Row="1" Click="Button_Cl"/>
-        <Button x:Name="Button0_2" Grid.Column="0" Grid.Row="2" Click="Button_Cl"/>
-        <Button x:Name="Button1_2" Grid.Column="1" Grid.Row="2" Click="Button_Cl"/>
-        <Button x:Name="Button2_2" Grid.Column="2" Grid.Row="2" Click="Button_Cl"/>
+        
+            <Button x:Name="ButtonA1" Grid.Column="0" Grid.Row="0" Click="Button_Cl"/>
+            <Button x:Name="ButtonA2" Grid.Column="1" Grid.Row="0" Click="Button_Cl"/>
+            <Button x:Name="ButtonA3" Grid.Column="2" Grid.Row="0" Click="Button_Cl"/>
+            <Button x:Name="ButtonA4" Grid.Column="3" Grid.Row="0" Click="Button_Cl"/>
+        
+            <Button x:Name="ButtonB1" Grid.Column="0" Grid.Row="1" Click="Button_Cl"/>
+            <Button x:Name="ButtonB2" Grid.Column="1" Grid.Row="1" Click="Button_Cl"/>
+            <Button x:Name="ButtonB3" Grid.Column="2" Grid.Row="1" Click="Button_Cl"/>
+            <Button x:Name="ButtonB4" Grid.Column="3" Grid.Row="1" Click="Button_Cl"/>
+        
+            <Button x:Name="ButtonC1" Grid.Column="0" Grid.Row="2" Click="Button_Cl"/>
+            <Button x:Name="ButtonC2" Grid.Column="1" Grid.Row="2" Click="Button_Cl"/>
+            <Button x:Name="ButtonC3" Grid.Column="2" Grid.Row="2" Click="Button_Cl"/>
+            <Button x:Name="ButtonC4" Grid.Column="3" Grid.Row="2" Click="Button_Cl"/>
+        
+            <Button x:Name="ButtonD1" Grid.Column="0" Grid.Row="3" Click="Button_Cl"/>
+            <Button x:Name="ButtonD2" Grid.Column="1" Grid.Row="3" Click="Button_Cl"/>
+            <Button x:Name="ButtonD3" Grid.Column="2" Grid.Row="3" Click="Button_Cl"/>
+            <Button x:Name="ButtonD4" Grid.Column="3" Grid.Row="3" Click="Button_Cl"/>   
     </Grid>
 </Window>
