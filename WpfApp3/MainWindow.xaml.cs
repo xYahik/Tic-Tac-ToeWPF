@@ -23,6 +23,7 @@ namespace WpfApp3
         private Znaki[] znaki;
         private bool Czy_Ruch_Gracza_Pierwszego;
         private bool Czy_Gra_Zakończona;
+        private int wygranychX, wygranychO = 0;
         public MainWindow()
         {
             InitializeComponent();
@@ -36,12 +37,17 @@ namespace WpfApp3
                 znaki[i] = Znaki.PustaKomórka;
 
             Czy_Ruch_Gracza_Pierwszego = true;
-
-            Conteiner.Children.Cast<Button>().ToList().ForEach(kratka =>
+            foreach (Button button in FindVisualChildren<Button>(Conteiner))
             {
-                kratka.Content = string.Empty;
+                button.Content = " ";
+                button.Background = Brushes.DarkGray;
+            }
+            /*Conteiner.Children.OfType<Button>().ToList().ForEach(kratka =>
+            {
+                kratka.Content = " ";
+                //kratka.Content = string.Empty;
                 kratka.Background = Brushes.DarkGray;
-            });
+            });*/
             Czy_Gra_Zakończona = false;
         }
 
@@ -49,6 +55,8 @@ namespace WpfApp3
         {
             if (Czy_Gra_Zakończona)
             {
+                WynikGracz1.Content = String.Format("Gracz1: {0}",wygranychO);
+                WynikGracz2.Content = String.Format("Gracz2: {0}",wygranychX);
                 ZaczynamyRozgrywke();
                 return;
             }
@@ -58,7 +66,6 @@ namespace WpfApp3
             var row = Grid.GetRow(kratka);
 
             var index = column + (row * 4);
-
             if(znaki[index] != Znaki.PustaKomórka)
             {
                 return;
@@ -200,13 +207,54 @@ namespace WpfApp3
                 ButtonC3.Background = ButtonC4.Background = ButtonD3.Background = ButtonD4.Background = Brushes.Green;
             }
             #endregion          
+            bool _continue = true;
+            Conteiner.Children.OfType<Button>().ToList().ForEach(kratka =>
+            {
+                
+                if(kratka.Background == Brushes.Green && _continue)
+                {
+                    if(kratka.Content == "X")
+                    {
+                        wygranychX += 1;
+                    }else if (kratka.Content == "O")
+                    {
+                        wygranychO += 1;
+                    }
+                    _continue = false;
+                }
+                
+            });
             if (!znaki.Any(x => x == Znaki.PustaKomórka)&&Czy_Gra_Zakończona==false)
             {
                 Czy_Gra_Zakończona = true;
-                Conteiner.Children.Cast<Button>().ToList().ForEach(kratka =>
+                Conteiner.Children.OfType<Button>().ToList().ForEach(kratka =>
                 {                    
                     kratka.Background = Brushes.Purple;
                 });
+            }
+        }
+        void Reset()
+        {
+            wygranychO = 0;
+            wygranychX = 0;
+        }
+        public static IEnumerable<T> FindVisualChildren<T>(DependencyObject depObj) where T : DependencyObject
+        {
+            if (depObj != null)
+            {
+                for (int i = 0; i < VisualTreeHelper.GetChildrenCount(depObj); i++)
+                {
+                    DependencyObject child = VisualTreeHelper.GetChild(depObj, i);
+                    if (child != null && child is T)
+                    {
+                        yield return (T)child;
+                    }
+
+                    foreach (T childOfChild in FindVisualChildren<T>(child))
+                    {
+                        yield return childOfChild;
+                    }
+                }
             }
         }
     }
