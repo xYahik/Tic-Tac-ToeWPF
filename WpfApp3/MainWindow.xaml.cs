@@ -20,18 +20,36 @@ namespace WpfApp3
     /// </summary>
     public partial class MainWindow : Window
     {
+        /// <summary>
+        /// Przechowuje wszystkie komórki
+        /// </summary>
         private Znaki[] znaki;
+        /// <summary>
+        /// Przechowuje wartość boolean dla wyznaczenia który gracz zaczyna
+        /// </summary>
         private bool Czy_Ruch_Gracza_Pierwszego;
+        /// <summary>
+        /// Przechowuje wartość boolean dla wyznaczenia czy gra została zakończona
+        /// </summary>
         private bool Czy_Gra_Zakończona;
+        /// <summary>
+        /// Przechowuje liczbę zwycięstw danego gracza
+        /// </summary>
         private int wygranychX, wygranychO = 0;
+
         private bool _computerPlaying = false;
         string Gracz2Nazwa = "Gracz";
+        /// <summary>
+        /// Po wczytaniu okna rozpoczyna rozgrywkę
+        /// </summary>
         public MainWindow()
         {
             InitializeComponent();
             ZaczynamyRozgrywke();
         }
-
+        /// <summary>
+        /// Inicjalizuje stan początkowy gry
+        /// </summary>
         private void ZaczynamyRozgrywke()
         {
             znaki = new Znaki[16];
@@ -52,7 +70,16 @@ namespace WpfApp3
             }
             Czy_Gra_Zakończona = false;
         }
-
+        /// <summary>
+        /// Ustalenie ruchów graczy oraz ich znaków
+        /// </summary>
+        /// <remarks>
+        /// Jeżeli jest ruch gracz pierwszego to umożliwia mu postawienie tylko znaku O,
+        /// następnie ruch ma gracz z X.Za każdym ruchem zmieniana jest wartość parametru Czy_Ruch_Gracza_Pierwszego 
+        /// aż do momentu wygrania parti przez jednego z graczy lub następstwa remisu
+        /// </remarks>
+        /// <param name="sender">Przycisk który został kliknięty</param>
+        /// <param name="e">Wydarzenia kliknięcia</param>
         private void Button_Cl(object sender, RoutedEventArgs e)
         {
             if (_computerPlaying)
@@ -129,7 +156,9 @@ namespace WpfApp3
             Wygrana();
 
         }
-
+        /// <summary>
+        /// Ustalenie logiki gry
+        /// </summary>
         private void Wygrana()
         {
 
@@ -290,12 +319,17 @@ namespace WpfApp3
                 ButtonRewanz.IsEnabled = true;
             }
         }
-
+        /// <summary>
+        /// Rozpoczyna rozgrykę od nowa
+        /// </summary>
+        /// <param name="sender">Przycisk który został kliknięty</param>
+        /// <param name="e">Wydarzenia kliknięcia</param>
         private void ButtonRewanz_Click(object sender, RoutedEventArgs e)
         {
             
             ZaczynamyRozgrywke();
         }
+
         private void ButtonPC_Click(object sender, RoutedEventArgs e)
         {
             ZaczynamyRozgrywke();
@@ -316,6 +350,11 @@ namespace WpfApp3
             }
 
         }
+        /// <summary>
+        /// Resetuje punkty zawodników
+        /// </summary>
+        /// <param name="sender">Przycisk który został kliknięty</param>
+        /// <param name="e">Wydarzenia kliknięcia</param>
         private void ButtonReset_Click(object sender, RoutedEventArgs e)
         {
             wygranychO = 0;
