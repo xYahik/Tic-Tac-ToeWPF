@@ -36,8 +36,13 @@ namespace WpfApp3
         /// Przechowuje liczbę zwycięstw danego gracza
         /// </summary>
         private int wygranychX, wygranychO = 0;
-
+        /// <summary>
+        /// Przechowuje wartość boolean czy drugim przeciwnikiem jest komputer
+        /// </summary>
         private bool _computerPlaying = false;
+        /// <summary>
+        /// Przechowuje Nazwe drugiego gracza. Po przełączeniu na PC zmienia wartość na "PC" i na odwrót.
+        /// </summary>
         string Gracz2Nazwa = "Gracz";
         /// <summary>
         /// Po wczytaniu okna rozpoczyna rozgrywkę
@@ -90,8 +95,6 @@ namespace WpfApp3
             if (Czy_Gra_Zakończona)
             {
                 UpdateWynik();
-
-                //ZaczynamyRozgrywke();
                 return;
             }
 
@@ -329,7 +332,11 @@ namespace WpfApp3
             
             ZaczynamyRozgrywke();
         }
-
+        /// <summary>
+        /// Wlącza/Wyłącza grę przeciwko PC
+        /// </summary>
+        /// <param name="sender">Przycisk który został kliknięty</param>
+        /// <param name="e">Wydarzenia kliknięcia</param>
         private void ButtonPC_Click(object sender, RoutedEventArgs e)
         {
             ZaczynamyRozgrywke();
@@ -361,11 +368,18 @@ namespace WpfApp3
             wygranychX = 0;
             UpdateWynik();
         }
+        /// <summary>
+        /// Aktualizuje tabele wyników obu graczy.
+        /// </summary>
         private void UpdateWynik()
         {
             WynikGracz1.Content = String.Format("Gracz1: {0}", wygranychO);
             WynikGracz2.Content = String.Format("{0}: {1}", Gracz2Nazwa, wygranychX);
         }
+        /// <summary>
+        /// Funkcja przeszukuje drzewo w wcelu znalezienia wszystkich object'ów T, znajdujących się w podanym object'cie rodzicu.
+        /// </summary>
+        /// <param name="depObj">Object w którym szukamy T typu</param>
         public static IEnumerable<T> FindVisualChildren<T>(DependencyObject depObj) where T : DependencyObject
         {
             if (depObj != null)
