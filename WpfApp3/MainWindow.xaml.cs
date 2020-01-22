@@ -35,12 +35,17 @@ namespace WpfApp3
             znaki = new Znaki[16];
             for (var i = 0; i < znaki.Length; i++)
                 znaki[i] = Znaki.PustaKomórka;
-
+            ButtonRewanz.IsEnabled = false;
             Czy_Ruch_Gracza_Pierwszego = true;
             foreach (Button button in FindVisualChildren<Button>(Conteiner))
             {
-                button.Content = " ";
-                button.Background = Brushes.DarkGray;
+               
+                if (button.Name != "ButtonReset" && button.Name != "ButtonRewanz")
+                {
+                    button.Content = " ";
+                    button.Background = Brushes.DarkGray;
+                    button.Opacity = 1;
+                }
             }
             /*Conteiner.Children.OfType<Button>().ToList().ForEach(kratka =>
             {
@@ -57,7 +62,8 @@ namespace WpfApp3
             {
                 WynikGracz1.Content = String.Format("Gracz1: {0}",wygranychO);
                 WynikGracz2.Content = String.Format("Gracz2: {0}",wygranychX);
-                ZaczynamyRozgrywke();
+                
+                //ZaczynamyRozgrywke();
                 return;
             }
 
@@ -206,38 +212,79 @@ namespace WpfApp3
                 Czy_Gra_Zakończona = true;
                 ButtonC3.Background = ButtonC4.Background = ButtonD3.Background = ButtonD4.Background = Brushes.Green;
             }
-            #endregion          
+            #endregion
+
             bool _continue = true;
-            Conteiner.Children.OfType<Button>().ToList().ForEach(kratka =>
+            foreach (Button button in FindVisualChildren<Button>(Conteiner))
             {
-                
-                if(kratka.Background == Brushes.Green && _continue)
+
+                if (!(button.Name == "ButtonReset" || button.Name == "ButtonRewanz") &&Czy_Gra_Zakończona)
                 {
-                    if(kratka.Content == "X")
+                    if (button.Background == Brushes.Green && _continue)
                     {
-                        wygranychX += 1;
-                    }else if (kratka.Content == "O")
-                    {
-                        wygranychO += 1;
+                        if (button.Content.ToString() == "X")
+                        {
+                            wygranychX += 1;
+                        }
+                        else if (button.Content.ToString() == "O")
+                        {
+                            wygranychO += 1;
+                        }
+                        _continue = false;
                     }
-                    _continue = false;
+                        
                 }
-                
-            });
+            }
+            WynikGracz1.Content = String.Format("Gracz1: {0}", wygranychO);
+            WynikGracz2.Content = String.Format("Gracz2: {0}", wygranychX);
+            if (Czy_Gra_Zakończona)
+            {
+                ButtonRewanz.IsEnabled = true;
+                foreach (Button button in FindVisualChildren<Button>(Conteiner))
+                {
+
+                    if (!(button.Name == "ButtonReset" || button.Name == "ButtonRewanz"))
+                    {
+
+                        button.Opacity = 0.4;
+                    }
+                }
+            }
             if (!znaki.Any(x => x == Znaki.PustaKomórka)&&Czy_Gra_Zakończona==false)
             {
                 Czy_Gra_Zakończona = true;
-                Conteiner.Children.OfType<Button>().ToList().ForEach(kratka =>
+                foreach (Button button in FindVisualChildren<Button>(Conteiner))
+                {
+
+                    if (!(button.Name == "ButtonReset" || button.Name == "ButtonRewanz") && Czy_Gra_Zakończona)
+                    {
+
+                        button.Opacity = 0.4;
+                        button.Background = Brushes.Purple;
+                    }
+                }
+                ButtonRewanz.IsEnabled = true;
+                /*Conteiner.Children.OfType<Button>().ToList().ForEach(kratka =>
                 {                    
                     kratka.Background = Brushes.Purple;
-                });
+                });*/
             }
         }
-        void Reset()
+
+        private void ButtonRewanz_Click(object sender, RoutedEventArgs e)
+        {
+            
+            ZaczynamyRozgrywke();
+        }
+
+        private void ButtonReset_Click(object sender, RoutedEventArgs e)
         {
             wygranychO = 0;
             wygranychX = 0;
+            WynikGracz1.Content = String.Format("Gracz1: {0}", wygranychO);
+            WynikGracz2.Content = String.Format("Gracz2: {0}", wygranychX);
         }
+
         public static IEnumerable<T> FindVisualChildren<T>(DependencyObject depObj) where T : DependencyObject
         {
             if (depObj != null)
