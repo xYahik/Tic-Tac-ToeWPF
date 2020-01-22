@@ -343,15 +343,15 @@ namespace WpfApp3
             var przycisk = (Button)sender;
             if (!_computerPlaying)
             {
-                przycisk.Foreground = Brushes.Green;
                 _computerPlaying = true;
+                przycisk.Foreground = Brushes.Green;
                 Gracz2Nazwa = "PC";
                 UpdateWynik();
             }
             else
             {
-                przycisk.Foreground = Brushes.Black;
                 _computerPlaying = false;
+                przycisk.Foreground = Brushes.Black;
                 Gracz2Nazwa = "Gracz";
                 UpdateWynik();
             }
@@ -377,7 +377,7 @@ namespace WpfApp3
             WynikGracz2.Content = String.Format("{0}: {1}", Gracz2Nazwa, wygranychX);
         }
         /// <summary>
-        /// Funkcja przeszukuje drzewo w wcelu znalezienia wszystkich object'ów T, znajdujących się w podanym object'cie rodzicu.
+        /// Funkcja przeszukuje drzewo w celu znalezienia wszystkich object'ów T, znajdujących się w podanym object'cie rodzicu.
         /// </summary>
         /// <param name="depObj">Object w którym szukamy T typu</param>
         public static IEnumerable<T> FindVisualChildren<T>(DependencyObject depObj) where T : DependencyObject
