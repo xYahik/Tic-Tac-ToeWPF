@@ -35,7 +35,7 @@ namespace WpfApp3
         /// <summary>
         /// Przechowuje liczbę zwycięstw danego gracza
         /// </summary>
-        private int wygranychX, wygranychO = 0;
+        private float wygranychX, wygranychO = 0;
         /// <summary>
         /// Przechowuje wartość boolean czy drugim przeciwnikiem jest komputer
         /// </summary>
@@ -73,6 +73,7 @@ namespace WpfApp3
                     button.Opacity = 1;
                 }
             }
+
             Czy_Gra_Zakończona = false;
         }
         /// <summary>
@@ -87,11 +88,7 @@ namespace WpfApp3
         /// <param name="e">Wydarzenia kliknięcia</param>
         private void Button_Cl(object sender, RoutedEventArgs e)
         {
-            if (_computerPlaying)
-            {
-                wygranychO = wygranychO / 2;
-                wygranychX = wygranychX / 2;
-            }
+            
             if (Czy_Gra_Zakończona)
             {
                 UpdateWynik();
@@ -281,17 +278,24 @@ namespace WpfApp3
                     {
                         if (button.Content.ToString() == "X")
                         {
+                            if(_computerPlaying)
+                            wygranychX += 0.5f;
+                            else
                             wygranychX += 1;
                         }
                         else if (button.Content.ToString() == "O")
                         {
-                            wygranychO += 1;
+                            if (_computerPlaying)
+                                wygranychO += 0.5f;
+                            else
+                                wygranychO += 1;
                         }
                         _continue = false;
                     }
                         
                 }
             }
+
             UpdateWynik();
             if (Czy_Gra_Zakończona)
             {
@@ -343,6 +347,8 @@ namespace WpfApp3
             var przycisk = (Button)sender;
             if (!_computerPlaying)
             {
+                wygranychO = 0;
+                wygranychX = 0;
                 _computerPlaying = true;
                 przycisk.Foreground = Brushes.Green;
                 Gracz2Nazwa = "PC";
@@ -350,6 +356,8 @@ namespace WpfApp3
             }
             else
             {
+                wygranychO = 0;
+                wygranychX = 0;
                 _computerPlaying = false;
                 przycisk.Foreground = Brushes.Black;
                 Gracz2Nazwa = "Gracz";
@@ -373,6 +381,7 @@ namespace WpfApp3
         /// </summary>
         private void UpdateWynik()
         {
+            
             WynikGracz1.Content = String.Format("Gracz1: {0}", wygranychO);
             WynikGracz2.Content = String.Format("{0}: {1}", Gracz2Nazwa, wygranychX);
         }
