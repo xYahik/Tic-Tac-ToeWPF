@@ -90,12 +90,15 @@
         <Viewbox  Stretch="Uniform"  Grid.Row="4" Grid.Column="3">
             <ContentControl x:Name="WynikGracz2" Content="Gracz2: 0"/>
         </Viewbox>
-        <Viewbox  Stretch="None"  Grid.Row="4" Grid.Column="1" Margin="5,50,5,9" Grid.ColumnSpan="2" >
-            <Button x:Name="ButtonReset" Content="Reset" Grid.Column="1" HorizontalAlignment="Left"  Grid.Row="4" VerticalAlignment="Top" Width="223" RenderTransformOrigin="0.547,0.492" Height="38" Grid.ColumnSpan="2" BorderThickness="2" FontSize="20" Click="ButtonReset_Click" Margin="5"/>
+        <Viewbox  Stretch="None"  Grid.Row="4" Grid.Column="1" Margin="5,50,43,9" Grid.ColumnSpan="2" >
+            <Button x:Name="ButtonReset" Content="Reset" Grid.Column="1" HorizontalAlignment="Left"  Grid.Row="4" VerticalAlignment="Top" Width="209" RenderTransformOrigin="0.547,0.492" Height="38" Grid.ColumnSpan="2" BorderThickness="2" FontSize="20" Click="ButtonReset_Click" Margin="5"/>
         </Viewbox>
 
-        <Viewbox  Stretch="None"  Grid.Row="4" Grid.Column="1" Margin="5,0,5,59" Grid.ColumnSpan="2" >
-            <Button x:Name="ButtonRewanz" Content="Rewanż" Grid.Column="1" HorizontalAlignment="Left"  Grid.Row="4" VerticalAlignment="Top" Width="223" RenderTransformOrigin="0.547,0.492" Height="38" Grid.ColumnSpan="2" BorderThickness="2" FontSize="20" IsEnabled="False" Click="ButtonRewanz_Click" Margin="5" />
+        <Viewbox  Stretch="None"  Grid.Row="4" Grid.Column="1" Margin="5,0,43,59" Grid.ColumnSpan="2" >
+            <Button x:Name="ButtonRewanz" Content="Rewanż" Grid.Column="1" HorizontalAlignment="Left"  Grid.Row="4" VerticalAlignment="Top" Width="205" RenderTransformOrigin="0.547,0.492" Height="38" Grid.ColumnSpan="2" BorderThickness="2" FontSize="20" IsEnabled="False" Click="ButtonRewanz_Click" Margin="5" />
+        </Viewbox>
+        <Viewbox  Stretch="None"  Grid.Row="4" Grid.Column="2" Margin="98,5,0,0" >
+            <Button x:Name="ButtonPC" Content="PC" Grid.Column="1" HorizontalAlignment="Left"  Grid.Row="4" VerticalAlignment="Top" Width="28" RenderTransformOrigin="0.547,0.492" Height="38" Grid.ColumnSpan="2" BorderThickness="2" FontSize="20" Click="ButtonPC_Click" Margin="5" />
         </Viewbox>
     </Grid>
 </Window>

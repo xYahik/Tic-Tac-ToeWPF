@@ -25,6 +25,7 @@ namespace WpfApp3
         private bool Czy_Gra_Zakończona;
         private int wygranychX, wygranychO = 0;
         private bool _computerPlaying = false;
+        string Gracz2Nazwa = "Gracz";
         public MainWindow()
         {
             InitializeComponent();
@@ -41,7 +42,7 @@ namespace WpfApp3
             foreach (Button button in FindVisualChildren<Button>(Conteiner))
             {
                
-                if (button.Name != "ButtonReset" && button.Name != "ButtonRewanz")
+                if (button.Name != "ButtonReset" && button.Name != "ButtonRewanz" && button.Name != "ButtonPC")
                 {
                     button.Content = " ";
                     button.Background = Brushes.DarkGray;
@@ -61,9 +62,8 @@ namespace WpfApp3
             }
             if (Czy_Gra_Zakończona)
             {
-                WynikGracz1.Content = String.Format("Gracz1: {0}",wygranychO);
-                WynikGracz2.Content = String.Format("Gracz2: {0}",wygranychX);
-                
+                UpdateWynik();
+
                 //ZaczynamyRozgrywke();
                 return;
             }
@@ -106,7 +106,7 @@ namespace WpfApp3
                     foreach (Button button in FindVisualChildren<Button>(Conteiner))
                     {
 
-                        if (button.Name != "ButtonReset" && button.Name != "ButtonRewanz")
+                        if (button.Name != "ButtonReset" && button.Name != "ButtonRewanz" && button.Name != "ButtonPC")
                         {
                             if (button.Foreground == Brushes.Black)
                             {
@@ -232,7 +232,7 @@ namespace WpfApp3
                 Czy_Gra_Zakończona = true;
                 ButtonC2.Background = ButtonC3.Background = ButtonD2.Background = ButtonD3.Background = Brushes.Green;
             }
-            if ((znaki[10] & znaki[11] & znaki[14] & znaki[15]) == znaki[0] && znaki[0] != Znaki.PustaKomórka)
+            if ((znaki[10] & znaki[11] & znaki[14] & znaki[15]) == znaki[10] && znaki[10] != Znaki.PustaKomórka)
             {
                 Czy_Gra_Zakończona = true;
                 ButtonC3.Background = ButtonC4.Background = ButtonD3.Background = ButtonD4.Background = Brushes.Green;
@@ -243,7 +243,7 @@ namespace WpfApp3
             foreach (Button button in FindVisualChildren<Button>(Conteiner))
             {
 
-                if (!(button.Name == "ButtonReset" || button.Name == "ButtonRewanz") &&Czy_Gra_Zakończona)
+                if (!(button.Name == "ButtonReset" || button.Name == "ButtonRewanz" || button.Name == "ButtonPC") &&Czy_Gra_Zakończona)
                 {
                     if (button.Background == Brushes.Green && _continue)
                     {
@@ -260,15 +260,14 @@ namespace WpfApp3
                         
                 }
             }
-            WynikGracz1.Content = String.Format("Gracz1: {0}", wygranychO);
-            WynikGracz2.Content = String.Format("Gracz2: {0}", wygranychX);
+            UpdateWynik();
             if (Czy_Gra_Zakończona)
             {
                 ButtonRewanz.IsEnabled = true;
                 foreach (Button button in FindVisualChildren<Button>(Conteiner))
                 {
 
-                    if (!(button.Name == "ButtonReset" || button.Name == "ButtonRewanz"))
+                    if (!(button.Name == "ButtonReset" || button.Name == "ButtonRewanz" || button.Name == "ButtonPC"))
                     {
 
                         button.Opacity = 0.4;
@@ -281,7 +280,7 @@ namespace WpfApp3
                 foreach (Button button in FindVisualChildren<Button>(Conteiner))
                 {
 
-                    if (!(button.Name == "ButtonReset" || button.Name == "ButtonRewanz") && Czy_Gra_Zakończona)
+                    if (!(button.Name == "ButtonReset" || button.Name == "ButtonRewanz" || button.Name == "ButtonPC") && Czy_Gra_Zakończona)
                     {
 
                         button.Opacity = 0.4;
@@ -297,15 +296,37 @@ namespace WpfApp3
             
             ZaczynamyRozgrywke();
         }
+        private void ButtonPC_Click(object sender, RoutedEventArgs e)
+        {
+            ZaczynamyRozgrywke();
+            var przycisk = (Button)sender;
+            if (!_computerPlaying)
+            {
+                przycisk.Foreground = Brushes.Green;
+                _computerPlaying = true;
+                Gracz2Nazwa = "PC";
+                UpdateWynik();
+            }
+            else
+            {
+                przycisk.Foreground = Brushes.Black;
+                _computerPlaying = false;
+                Gracz2Nazwa = "Gracz";
+                UpdateWynik();
+            }
 
+        }
         private void ButtonReset_Click(object sender, RoutedEventArgs e)
         {
             wygranychO = 0;
             wygranychX = 0;
-            WynikGracz1.Content = String.Format("Gracz1: {0}", wygranychO);
-            WynikGracz2.Content = String.Format("Gracz2: {0}", wygranychX);
+            UpdateWynik();
         }
-
+        private void UpdateWynik()
+        {
+            WynikGracz1.Content = String.Format("Gracz1: {0}", wygranychO);
+            WynikGracz2.Content = String.Format("{0}: {1}", Gracz2Nazwa, wygranychX);
+        }
         public static IEnumerable<T> FindVisualChildren<T>(DependencyObject depObj) where T : DependencyObject
         {
             if (depObj != null)
