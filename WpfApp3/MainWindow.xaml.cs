@@ -24,6 +24,7 @@ namespace WpfApp3
         private bool Czy_Ruch_Gracza_Pierwszego;
         private bool Czy_Gra_Zakończona;
         private int wygranychX, wygranychO = 0;
+        private bool _computerPlaying = false;
         public MainWindow()
         {
             InitializeComponent();
@@ -44,20 +45,20 @@ namespace WpfApp3
                 {
                     button.Content = " ";
                     button.Background = Brushes.DarkGray;
+                    button.Foreground = Brushes.Black;
                     button.Opacity = 1;
                 }
             }
-            /*Conteiner.Children.OfType<Button>().ToList().ForEach(kratka =>
-            {
-                kratka.Content = " ";
-                //kratka.Content = string.Empty;
-                kratka.Background = Brushes.DarkGray;
-            });*/
             Czy_Gra_Zakończona = false;
         }
 
         private void Button_Cl(object sender, RoutedEventArgs e)
         {
+            if (_computerPlaying)
+            {
+                wygranychO = wygranychO / 2;
+                wygranychX = wygranychX / 2;
+            }
             if (Czy_Gra_Zakończona)
             {
                 WynikGracz1.Content = String.Format("Gracz1: {0}",wygranychO);
@@ -79,6 +80,7 @@ namespace WpfApp3
             if (Czy_Ruch_Gracza_Pierwszego)
             {
                 znaki[index] = Znaki.Znak_O;
+
             }
             else
             {
@@ -97,12 +99,35 @@ namespace WpfApp3
             if (Czy_Ruch_Gracza_Pierwszego)
             {
                 Czy_Ruch_Gracza_Pierwszego = false;
+                if (_computerPlaying)
+                {
+                    Wygrana();
+                    List<Button> buttons = new List<Button>();
+                    foreach (Button button in FindVisualChildren<Button>(Conteiner))
+                    {
+
+                        if (button.Name != "ButtonReset" && button.Name != "ButtonRewanz")
+                        {
+                            if (button.Foreground == Brushes.Black)
+                            {
+                                buttons.Add(button);
+                            }
+                        }
+                    }
+                    var random = new Random();
+                    int indexx = random.Next(0, buttons.Count);
+                    
+                    Button_Cl(buttons[indexx], new RoutedEventArgs());
+
+                }
             }
             else
             {
                 Czy_Ruch_Gracza_Pierwszego = true;
             }
+
             Wygrana();
+
         }
 
         private void Wygrana()
@@ -264,10 +289,6 @@ namespace WpfApp3
                     }
                 }
                 ButtonRewanz.IsEnabled = true;
-                /*Conteiner.Children.OfType<Button>().ToList().ForEach(kratka =>
-                {                    
-                    kratka.Background = Brushes.Purple;
-                });*/
             }
         }
 
