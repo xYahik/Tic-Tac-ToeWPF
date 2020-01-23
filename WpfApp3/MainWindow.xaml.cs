@@ -12,7 +12,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
-
+using Tic_Tac_ToeLIB;
 namespace WpfApp3
 {
     /// <summary>
@@ -20,7 +20,8 @@ namespace WpfApp3
     /// </summary>
     public partial class MainWindow : Window
     {
-        /// <summary>
+
+        /*/// <summary>
         /// Przechowuje wszystkie komórki
         /// </summary>
         private Znaki[] znaki;
@@ -46,7 +47,8 @@ namespace WpfApp3
         string Gracz2Nazwa = "Gracz";
         /// <summary>
         /// Po wczytaniu okna rozpoczyna rozgrywkę
-        /// </summary>
+        /// </summary>*/
+        TicTacToe game = new TicTacToe();
         public MainWindow()
         {
             InitializeComponent();
@@ -57,11 +59,11 @@ namespace WpfApp3
         /// </summary>
         private void ZaczynamyRozgrywke()
         {
-            znaki = new Znaki[16];
-            for (var i = 0; i < znaki.Length; i++)
-                znaki[i] = Znaki.PustaKomórka;
+            game.znaki = new TicTacToe.Znaki[16];
+            for (var i = 0; i < game.znaki.Length; i++)
+                game.znaki[i] = TicTacToe.Znaki.PustaKomórka;
             ButtonRewanz.IsEnabled = false;
-            Czy_Ruch_Gracza_Pierwszego = true;
+            game.Czy_Ruch_Gracza_Pierwszego = true;
             foreach (Button button in FindVisualChildren<Button>(Conteiner))
             {
                
@@ -74,7 +76,7 @@ namespace WpfApp3
                 }
             }
 
-            Czy_Gra_Zakończona = false;
+            game.Czy_Gra_Zakończona = false;
         }
         /// <summary>
         /// Ustalenie ruchów graczy oraz ich znaków
@@ -89,7 +91,7 @@ namespace WpfApp3
         private void Button_Cl(object sender, RoutedEventArgs e)
         {
             
-            if (Czy_Gra_Zakończona)
+            if (game.Czy_Gra_Zakończona)
             {
                 UpdateWynik();
                 return;
@@ -100,20 +102,20 @@ namespace WpfApp3
             var row = Grid.GetRow(kratka);
 
             var index = column + (row * 4);
-            if(znaki[index] != Znaki.PustaKomórka)
+            if(game.znaki[index] != TicTacToe.Znaki.PustaKomórka)
             {
                 return;
             }
-            if (Czy_Ruch_Gracza_Pierwszego)
+            if (game.Czy_Ruch_Gracza_Pierwszego)
             {
-                znaki[index] = Znaki.Znak_O;
+                game.znaki[index] = TicTacToe.Znaki.Znak_O;
 
             }
             else
             {
-                znaki[index] = Znaki.Znak_X;
+                game.znaki[index] = TicTacToe.Znaki.Znak_X;
             }
-            if (Czy_Ruch_Gracza_Pierwszego)
+            if (game.Czy_Ruch_Gracza_Pierwszego)
             {
                 kratka.Content = "O";
                 kratka.Foreground = Brushes.Red;
@@ -123,10 +125,10 @@ namespace WpfApp3
                 kratka.Content = "X";
                 kratka.Foreground = Brushes.Blue;
             }
-            if (Czy_Ruch_Gracza_Pierwszego)
+            if (game.Czy_Ruch_Gracza_Pierwszego)
             {
-                Czy_Ruch_Gracza_Pierwszego = false;
-                if (_computerPlaying)
+                game.Czy_Ruch_Gracza_Pierwszego = false;
+                if (game._computerPlaying)
                 {
                     Wygrana();
                     List<Button> buttons = new List<Button>();
@@ -150,7 +152,7 @@ namespace WpfApp3
             }
             else
             {
-                Czy_Ruch_Gracza_Pierwszego = true;
+                game.Czy_Ruch_Gracza_Pierwszego = true;
             }
 
             Wygrana();
@@ -164,106 +166,106 @@ namespace WpfApp3
 
             #region wPoziomie
             
-            if ((znaki[0] & znaki[1] & znaki[2] & znaki[3]) == znaki[0] && znaki[0] != Znaki.PustaKomórka)
+            if ((game.znaki[0] & game.znaki[1] & game.znaki[2] & game.znaki[3]) == game.znaki[0] && game.znaki[0] != TicTacToe.Znaki.PustaKomórka)
             {
-                Czy_Gra_Zakończona = true;
+                game.Czy_Gra_Zakończona = true;
                 ButtonA1.Background = ButtonA2.Background = ButtonA3.Background = ButtonA4.Background = Brushes.Green;
             }
-            if ((znaki[4] & znaki[5] & znaki[6] & znaki[7]) == znaki[4] && znaki[4] != Znaki.PustaKomórka)
+            if ((game.znaki[4] & game.znaki[5] & game.znaki[6] & game.znaki[7]) == game.znaki[4] && game.znaki[4] != TicTacToe.Znaki.PustaKomórka)
             {
-                Czy_Gra_Zakończona = true;
+                game.Czy_Gra_Zakończona = true;
                 ButtonB1.Background = ButtonB2.Background = ButtonB3.Background = ButtonB4.Background = Brushes.Green;
             }
-            if ((znaki[8] & znaki[9] & znaki[10] & znaki[11]) == znaki[8] && znaki[8] != Znaki.PustaKomórka)
+            if ((game.znaki[8] & game.znaki[9] & game.znaki[10] & game.znaki[11]) == game.znaki[8] && game.znaki[8] != TicTacToe.Znaki.PustaKomórka)
             {
-                Czy_Gra_Zakończona = true;
+                game.Czy_Gra_Zakończona = true;
                 ButtonC1.Background = ButtonC2.Background = ButtonC3.Background = ButtonC4.Background = Brushes.Green;
             }
-            if ((znaki[12] & znaki[13] & znaki[14] & znaki[15]) == znaki[12]&&znaki[12] != Znaki.PustaKomórka)
+            if ((game.znaki[12] & game.znaki[13] & game.znaki[14] & game.znaki[15]) == game.znaki[12]&& game.znaki[12] != TicTacToe.Znaki.PustaKomórka)
             {
-                Czy_Gra_Zakończona = true;
+                game.Czy_Gra_Zakończona = true;
                 ButtonD1.Background = ButtonD2.Background = ButtonD3.Background = ButtonD4.Background = Brushes.Green;
             }
             #endregion
             #region wPionie
-            if ((znaki[0] & znaki[4] & znaki[8] & znaki[12]) == znaki[0]&& znaki[0] != Znaki.PustaKomórka )
+            if ((game.znaki[0] & game.znaki[4] & game.znaki[8] & game.znaki[12]) == game.znaki[0]&& game.znaki[0] != TicTacToe.Znaki.PustaKomórka )
             {
-                Czy_Gra_Zakończona = true;
+                game.Czy_Gra_Zakończona = true;
                 ButtonA1.Background = ButtonB1.Background = ButtonC1.Background = ButtonD1.Background = Brushes.Green;
             }
-            if ((znaki[1] & znaki[5] & znaki[9] & znaki[13]) == znaki[1]&&znaki[1] != Znaki.PustaKomórka)
+            if ((game.znaki[1] & game.znaki[5] & game.znaki[9] & game.znaki[13]) == game.znaki[1]&& game.znaki[1] != TicTacToe.Znaki.PustaKomórka)
             {
-                Czy_Gra_Zakończona = true;
+                game.Czy_Gra_Zakończona = true;
                 ButtonA2.Background = ButtonB2.Background = ButtonC2.Background = ButtonD2.Background = Brushes.Green;
             }        
-            if ((znaki[2] & znaki[6] & znaki[10] & znaki[14]) == znaki[2] && znaki[2] != Znaki.PustaKomórka)
+            if ((game.znaki[2] & game.znaki[6] & game.znaki[10] & game.znaki[14]) == game.znaki[2] && game.znaki[2] != TicTacToe.Znaki.PustaKomórka)
             {
-                Czy_Gra_Zakończona = true;
+                game.Czy_Gra_Zakończona = true;
                 ButtonA3.Background = ButtonB3.Background = ButtonC3.Background = ButtonD3.Background = Brushes.Green;
             }
-            if ((znaki[3] & znaki[7] & znaki[11] & znaki[15]) == znaki[3]&&znaki[3] != Znaki.PustaKomórka)
+            if ((game.znaki[3] & game.znaki[7] & game.znaki[11] & game.znaki[15]) == game.znaki[3]&& game.znaki[3] != TicTacToe.Znaki.PustaKomórka)
             {
-                Czy_Gra_Zakończona = true;
+                game.Czy_Gra_Zakończona = true;
                 ButtonA4.Background = ButtonB4.Background = ButtonC4.Background = ButtonD4.Background = Brushes.Green;
             }
 
             #endregion
             #region skosy
-            if ((znaki[0] & znaki[5] & znaki[10] & znaki[15]) == znaki[0] && znaki[0] != Znaki.PustaKomórka)
+            if ((game.znaki[0] & game.znaki[5] & game.znaki[10] & game.znaki[15]) == game.znaki[0] && game.znaki[0] != TicTacToe.Znaki.PustaKomórka)
             {
-                Czy_Gra_Zakończona = true;
+                game.Czy_Gra_Zakończona = true;
                 ButtonA1.Background = ButtonB2.Background = ButtonC3.Background = ButtonD4.Background = Brushes.Green;
             }
-            if ((znaki[3] & znaki[6] & znaki[9] & znaki[12]) == znaki[3] && znaki[3] != Znaki.PustaKomórka)
+            if ((game.znaki[3] & game.znaki[6] & game.znaki[9] & game.znaki[12]) == game.znaki[3] && game.znaki[3] != TicTacToe.Znaki.PustaKomórka)
             {
-                Czy_Gra_Zakończona = true;
+                game.Czy_Gra_Zakończona = true;
                 ButtonA4.Background = ButtonB3.Background = ButtonC2.Background = ButtonD1.Background = Brushes.Green;
             }
             #endregion
             #region kwadraty
-            if ((znaki[0] & znaki[1] & znaki[4] & znaki[5]) == znaki[0] && znaki[0] != Znaki.PustaKomórka)
+            if ((game.znaki[0] & game.znaki[1] & game.znaki[4] & game.znaki[5]) == game.znaki[0] && game.znaki[0] != TicTacToe.Znaki.PustaKomórka)
             {
-                Czy_Gra_Zakończona = true;
+                game.Czy_Gra_Zakończona = true;
                 ButtonA1.Background = ButtonA2.Background = ButtonB1.Background = ButtonB2.Background = Brushes.Green;
             }
-            if ((znaki[1] & znaki[2] & znaki[5] & znaki[6]) == znaki[1] && znaki[1] != Znaki.PustaKomórka)
+            if ((game.znaki[1] & game.znaki[2] & game.znaki[5] & game.znaki[6]) == game.znaki[1] && game.znaki[1] != TicTacToe.Znaki.PustaKomórka)
             {
-                Czy_Gra_Zakończona = true;
+                game.Czy_Gra_Zakończona = true;
                 ButtonA2.Background = ButtonA3.Background = ButtonB2.Background = ButtonB3.Background = Brushes.Green;
             }
-            if ((znaki[2] & znaki[3] & znaki[6] & znaki[7]) == znaki[2] && znaki[2] != Znaki.PustaKomórka)
+            if ((game.znaki[2] & game.znaki[3] & game.znaki[6] & game.znaki[7]) == game.znaki[2] && game.znaki[2] != TicTacToe.Znaki.PustaKomórka)
             {
-                Czy_Gra_Zakończona = true;
+                game.Czy_Gra_Zakończona = true;
                 ButtonA3.Background = ButtonA4.Background = ButtonB3.Background = ButtonB4.Background = Brushes.Green;
             }
-            if ((znaki[4] & znaki[5] & znaki[8] & znaki[9]) == znaki[4] && znaki[4] != Znaki.PustaKomórka)
+            if ((game.znaki[4] & game.znaki[5] & game.znaki[8] & game.znaki[9]) == game.znaki[4] && game.znaki[4] != TicTacToe.Znaki.PustaKomórka)
             {
-                Czy_Gra_Zakończona = true;
+                game.Czy_Gra_Zakończona = true;
                 ButtonB1.Background = ButtonB2.Background = ButtonC1.Background = ButtonC2.Background = Brushes.Green;
             }
-            if ((znaki[5] & znaki[6] & znaki[9] & znaki[10]) == znaki[5] && znaki[5] != Znaki.PustaKomórka)
+            if ((game.znaki[5] & game.znaki[6] & game.znaki[9] & game.znaki[10]) == game.znaki[5] && game.znaki[5] != TicTacToe.Znaki.PustaKomórka)
             {
-                Czy_Gra_Zakończona = true;
+                game.Czy_Gra_Zakończona = true;
                 ButtonB2.Background = ButtonB3.Background = ButtonC2.Background = ButtonC3.Background = Brushes.Green;
             }
-            if ((znaki[6] & znaki[7] & znaki[10] & znaki[11]) == znaki[6] && znaki[6] != Znaki.PustaKomórka)
+            if ((game.znaki[6] & game.znaki[7] & game.znaki[10] & game.znaki[11]) == game.znaki[6] && game.znaki[6] != TicTacToe.Znaki.PustaKomórka)
             {
-                Czy_Gra_Zakończona = true;
+                game.Czy_Gra_Zakończona = true;
                 ButtonB3.Background = ButtonB4.Background = ButtonC3.Background = ButtonC4.Background = Brushes.Green;
             }
-            if ((znaki[8] & znaki[9] & znaki[12] & znaki[13]) == znaki[8] && znaki[8] != Znaki.PustaKomórka)
+            if ((game.znaki[8] & game.znaki[9] & game.znaki[12] & game.znaki[13]) == game.znaki[8] && game.znaki[8] != TicTacToe.Znaki.PustaKomórka)
             {
-                Czy_Gra_Zakończona = true;
+                game.Czy_Gra_Zakończona = true;
                 ButtonC1.Background = ButtonC2.Background = ButtonD1.Background = ButtonD2.Background = Brushes.Green;
             }
-            if ((znaki[9] & znaki[10] & znaki[13] & znaki[14]) == znaki[9] && znaki[9] != Znaki.PustaKomórka)
+            if ((game.znaki[9] & game.znaki[10] & game.znaki[13] & game.znaki[14]) == game.znaki[9] && game.znaki[9] != TicTacToe.Znaki.PustaKomórka)
             {
-                Czy_Gra_Zakończona = true;
+                game.Czy_Gra_Zakończona = true;
                 ButtonC2.Background = ButtonC3.Background = ButtonD2.Background = ButtonD3.Background = Brushes.Green;
             }
-            if ((znaki[10] & znaki[11] & znaki[14] & znaki[15]) == znaki[10] && znaki[10] != Znaki.PustaKomórka)
+            if ((game.znaki[10] & game.znaki[11] & game.znaki[14] & game.znaki[15]) == game.znaki[10] && game.znaki[10] != TicTacToe.Znaki.PustaKomórka)
             {
-                Czy_Gra_Zakończona = true;
+                game.Czy_Gra_Zakończona = true;
                 ButtonC3.Background = ButtonC4.Background = ButtonD3.Background = ButtonD4.Background = Brushes.Green;
             }
             #endregion
@@ -272,23 +274,23 @@ namespace WpfApp3
             foreach (Button button in FindVisualChildren<Button>(Conteiner))
             {
 
-                if (!(button.Name == "ButtonReset" || button.Name == "ButtonRewanz" || button.Name == "ButtonPC") &&Czy_Gra_Zakończona)
+                if (!(button.Name == "ButtonReset" || button.Name == "ButtonRewanz" || button.Name == "ButtonPC") && game.Czy_Gra_Zakończona)
                 {
                     if (button.Background == Brushes.Green && _continue)
                     {
                         if (button.Content.ToString() == "X")
                         {
-                            if(_computerPlaying)
-                            wygranychX += 0.5f;
+                            if(game._computerPlaying)
+                                game.wygranychX += 0.5f;
                             else
-                            wygranychX += 1;
+                                game.wygranychX += 1;
                         }
                         else if (button.Content.ToString() == "O")
                         {
-                            if (_computerPlaying)
-                                wygranychO += 0.5f;
+                            if (game._computerPlaying)
+                                game.wygranychO += 0.5f;
                             else
-                                wygranychO += 1;
+                                game.wygranychO += 1;
                         }
                         _continue = false;
                     }
@@ -297,7 +299,7 @@ namespace WpfApp3
             }
 
             UpdateWynik();
-            if (Czy_Gra_Zakończona)
+            if (game.Czy_Gra_Zakończona)
             {
                 ButtonRewanz.IsEnabled = true;
                 foreach (Button button in FindVisualChildren<Button>(Conteiner))
@@ -310,13 +312,13 @@ namespace WpfApp3
                     }
                 }
             }
-            if (!znaki.Any(x => x == Znaki.PustaKomórka)&&Czy_Gra_Zakończona==false)
+            if (!game.znaki.Any(x => x == TicTacToe.Znaki.PustaKomórka)&& game.Czy_Gra_Zakończona ==false)
             {
-                Czy_Gra_Zakończona = true;
+                game.Czy_Gra_Zakończona = true;
                 foreach (Button button in FindVisualChildren<Button>(Conteiner))
                 {
 
-                    if (!(button.Name == "ButtonReset" || button.Name == "ButtonRewanz" || button.Name == "ButtonPC") && Czy_Gra_Zakończona)
+                    if (!(button.Name == "ButtonReset" || button.Name == "ButtonRewanz" || button.Name == "ButtonPC") && game.Czy_Gra_Zakończona)
                     {
 
                         button.Opacity = 0.4;
@@ -345,22 +347,22 @@ namespace WpfApp3
         {
             ZaczynamyRozgrywke();
             var przycisk = (Button)sender;
-            if (!_computerPlaying)
+            if (!game._computerPlaying)
             {
-                wygranychO = 0;
-                wygranychX = 0;
-                _computerPlaying = true;
+                game.wygranychO = 0;
+                game.wygranychX = 0;
+                game._computerPlaying = true;
                 przycisk.Foreground = Brushes.Green;
-                Gracz2Nazwa = "PC";
+                game.Gracz2Nazwa = "PC";
                 UpdateWynik();
             }
             else
             {
-                wygranychO = 0;
-                wygranychX = 0;
-                _computerPlaying = false;
+                game.wygranychO = 0;
+                game.wygranychX = 0;
+                game._computerPlaying = false;
                 przycisk.Foreground = Brushes.Black;
-                Gracz2Nazwa = "Gracz";
+                game.Gracz2Nazwa = "Gracz";
                 UpdateWynik();
             }
 
@@ -372,8 +374,8 @@ namespace WpfApp3
         /// <param name="e">Wydarzenia kliknięcia</param>
         private void ButtonReset_Click(object sender, RoutedEventArgs e)
         {
-            wygranychO = 0;
-            wygranychX = 0;
+            game.wygranychO = 0;
+            game.wygranychX = 0;
             UpdateWynik();
         }
         /// <summary>
@@ -382,8 +384,8 @@ namespace WpfApp3
         private void UpdateWynik()
         {
             
-            WynikGracz1.Content = String.Format("Gracz1: {0}", wygranychO);
-            WynikGracz2.Content = String.Format("{0}: {1}", Gracz2Nazwa, wygranychX);
+            WynikGracz1.Content = String.Format("Gracz1: {0}", game.wygranychO);
+            WynikGracz2.Content = String.Format("{0}: {1}", game.Gracz2Nazwa, game.wygranychX);
         }
         /// <summary>
         /// Funkcja przeszukuje drzewo w celu znalezienia wszystkich object'ów T, znajdujących się w podanym object'cie rodzicu.
