@@ -1,0 +1,109 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>WpfApp3</name>
+    </assembly>
+    <members>
+        <member name="T:WpfApp3.App">
+            <summary>
+            Logika interakcji dla klasy App.xaml
+            </summary>
+            <summary>
+            App
+            </summary>
+        </member>
+        <member name="M:WpfApp3.App.InitializeComponent">
+            <summary>
+            InitializeComponent
+            </summary>
+        </member>
+        <member name="M:WpfApp3.App.Main">
+            <summary>
+            Application Entry Point.
+            </summary>
+        </member>
+        <member name="T:WpfApp3.MainWindow">
+            <summary>
+            Logika interakcji dla klasy MainWindow.xaml
+            </summary>
+            <summary>
+            MainWindow
+            </summary>
+        </member>
+        <member name="M:WpfApp3.MainWindow.ZaczynamyRozgrywke">
+            <summary>
+            Inicjalizuje stan początkowy gry
+            </summary>
+        </member>
+        <member name="M:WpfApp3.MainWindow.Button_Cl(System.Object,System.Windows.RoutedEventArgs)">
+            <summary>
+            Ustalenie ruchów graczy oraz ich znaków
+            </summary>
+            <remarks>
+            Jeżeli jest ruch gracz pierwszego to umożliwia mu postawienie tylko znaku O,
+            następnie ruch ma gracz z X.Za każdym ruchem zmieniana jest wartość parametru Czy_Ruch_Gracza_Pierwszego 
+            aż do momentu wygrania parti przez jednego z graczy lub następstwa remisu
+            </remarks>
+            <param name="sender">Przycisk który został kliknięty</param>
+            <param name="e">Wydarzenia kliknięcia</param>
+        </member>
+        <member name="M:WpfApp3.MainWindow.Wygrana">
+            <summary>
+            Ustalenie logiki gry
+            </summary>
+        </member>
+        <member name="M:WpfApp3.MainWindow.ButtonRewanz_Click(System.Object,System.Windows.RoutedEventArgs)">
+            <summary>
+            Rozpoczyna rozgrykę od nowa
+            </summary>
+            <param name="sender">Przycisk który został kliknięty</param>
+            <param name="e">Wydarzenia kliknięcia</param>
+        </member>
+        <member name="M:WpfApp3.MainWindow.ButtonPC_Click(System.Object,System.Windows.RoutedEventArgs)">
+            <summary>
+            Wlącza/Wyłącza grę przeciwko PC
+            </summary>
+            <param name="sender">Przycisk który został kliknięty</param>
+            <param name="e">Wydarzenia kliknięcia</param>
+        </member>
+        <member name="M:WpfApp3.MainWindow.ButtonReset_Click(System.Object,System.Windows.RoutedEventArgs)">
+            <summary>
+            Resetuje punkty zawodników
+            </summary>
+            <param name="sender">Przycisk który został kliknięty</param>
+            <param name="e">Wydarzenia kliknięcia</param>
+        </member>
+        <member name="M:WpfApp3.MainWindow.UpdateWynik">
+            <summary>
+            Aktualizuje tabele wyników obu graczy.
+            </summary>
+        </member>
+        <member name="M:WpfApp3.MainWindow.FindVisualChildren``1(System.Windows.DependencyObject)">
+            <summary>
+            Funkcja przeszukuje drzewo w celu znalezienia wszystkich object'ów T, znajdujących się w podanym object'cie rodzicu.
+            </summary>
+            <param name="depObj">Object w którym szukamy T typu</param>
+        </member>
+        <member name="M:WpfApp3.MainWindow.InitializeComponent">
+            <summary>
+            InitializeComponent
+            </summary>
+        </member>
+        <member name="T:WpfApp3.Properties.Resources">
+            <summary>
+              Silnie typizowana klasa zasobów do wyszukiwania zlokalizowanych ciągów itd.
+            </summary>
+        </member>
+        <member name="P:WpfApp3.Properties.Resources.ResourceManager">
+            <summary>
+              Zwraca buforowane wystąpienie składnika ResourceManager używane przez tę klasę.
+            </summary>
+        </member>
+        <member name="P:WpfApp3.Properties.Resources.Culture">
+            <summary>
+              Przesłania właściwość CurrentUICulture bieżącego wątku dla wszystkich
+              przypadków przeszukiwania zasobów za pomocą tej silnie typizowanej klasy zasobów.
+            </summary>
+        </member>
+    </members>
+</doc>
