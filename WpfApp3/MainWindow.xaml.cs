@@ -21,30 +21,7 @@ namespace WpfApp3
     public partial class MainWindow : Window
     {
 
-        /*/// <summary>
-        /// Przechowuje wszystkie komórki
-        /// </summary>
-        private Znaki[] znaki;
-        /// <summary>
-        /// Przechowuje wartość boolean dla wyznaczenia który gracz zaczyna
-        /// </summary>
-        private bool Czy_Ruch_Gracza_Pierwszego;
-        /// <summary>
-        /// Przechowuje wartość boolean dla wyznaczenia czy gra została zakończona
-        /// </summary>
-        private bool Czy_Gra_Zakończona;
-        /// <summary>
-        /// Przechowuje liczbę zwycięstw danego gracza
-        /// </summary>
-        private float wygranychX, wygranychO = 0;
-        /// <summary>
-        /// Przechowuje wartość boolean czy drugim przeciwnikiem jest komputer
-        /// </summary>
-        private bool _computerPlaying = false;
-        /// <summary>
-        /// Przechowuje Nazwe drugiego gracza. Po przełączeniu na PC zmienia wartość na "PC" i na odwrót.
-        /// </summary>
-        string Gracz2Nazwa = "Gracz";
+      
         /// <summary>
         /// Po wczytaniu okna rozpoczyna rozgrywkę
         /// </summary>*/
